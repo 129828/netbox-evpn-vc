@@ -48,7 +48,7 @@ evpnvcvlan_buttons = [
 menu = PluginMenu(
     label='EVPN',
     icon_class='mdi mdi-vpn',
-    groups=(
+    groups=[
         (
             'EVPN',
             (
@@ -69,5 +69,5 @@ menu = PluginMenu(
                 )
             )
         )
-    )
+    ]
 )
