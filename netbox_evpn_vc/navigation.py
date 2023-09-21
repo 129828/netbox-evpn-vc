@@ -65,8 +65,7 @@ menu = PluginMenu(
                 link='plugins:netbox_evpn_vc:evpnvctype_list',
                 link_text='VC Types',
                 buttons=evpnvc_type_buttons
-            ),
-        ),
-
+            )
+        )
     )
 )
