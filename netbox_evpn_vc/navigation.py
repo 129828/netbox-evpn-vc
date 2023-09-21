@@ -51,20 +51,22 @@ menu = PluginMenu(
     groups=(
         (
             'EVPN',
-            PluginMenuItem(
-                link='plugins:netbox_evpn_vc:evpnvc_list',
-                link_text='VCs',
-                buttons=evpnvc_buttons
-            ),
-            PluginMenuItem(
-                link='plugins:netbox_evpn_vc:evpnvcvlan_list',
-                link_text='VC-VLANs',
-                buttons=evpnvcvlan_buttons
-            ),
-            PluginMenuItem(
-                link='plugins:netbox_evpn_vc:evpnvctype_list',
-                link_text='VC Types',
-                buttons=evpnvc_type_buttons
+            (
+                PluginMenuItem(
+                    link='plugins:netbox_evpn_vc:evpnvc_list',
+                    link_text='VCs',
+                    buttons=evpnvc_buttons
+                ),
+                PluginMenuItem(
+                    link='plugins:netbox_evpn_vc:evpnvcvlan_list',
+                    link_text='VC-VLANs',
+                    buttons=evpnvcvlan_buttons
+                ),
+                PluginMenuItem(
+                    link='plugins:netbox_evpn_vc:evpnvctype_list',
+                    link_text='VC Types',
+                    buttons=evpnvc_type_buttons
+                )
             )
         )
     )
