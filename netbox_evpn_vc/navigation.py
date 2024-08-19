@@ -1,5 +1,5 @@
 from netbox.plugins import PluginMenuButton, PluginMenuItem, PluginMenu
-from utilities.choices import ButtonColorChoices
+from netbox.choices import ButtonColorChoices
 
 evpnvc_type_buttons = [
     PluginMenuButton(
