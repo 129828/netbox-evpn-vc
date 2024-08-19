@@ -1,4 +1,4 @@
-from extras.plugins import PluginConfig
+from netbox.plugins import PluginConfig
 
 class NetBoxEvpnVCConfig(PluginConfig):
     name = 'netbox_evpn_vc'
