@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.db.models import Count
-from netbox.plugins import PluginTemplateExtension
+from extras.plugins import PluginTemplateExtension
 from . import tables
 
 class EvpnVCVLANStatus(PluginTemplateExtension):
