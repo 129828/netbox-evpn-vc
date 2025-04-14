@@ -1,12 +1,12 @@
 from netbox.plugins import PluginMenuButton, PluginMenuItem, PluginMenu
-from utilities.choices import ButtonColorChoices
+# from utilities.choices import ButtonColorChoices
 
 evpnvc_type_buttons = [
     PluginMenuButton(
         link='plugins:netbox_evpn_vc:evpnvctype_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
+        # color=ButtonColorChoices.GREEN
     )
 ]
 evpnvc_buttons = [
@@ -14,7 +14,7 @@ evpnvc_buttons = [
         link='plugins:netbox_evpn_vc:evpnvc_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
+        # color=ButtonColorChoices.GREEN
     )
 ]
 
@@ -23,7 +23,7 @@ evpnvcvlan_buttons = [
         link='plugins:netbox_evpn_vc:evpnvcvlan_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
+        # color=ButtonColorChoices.GREEN
     )
 ]
 
