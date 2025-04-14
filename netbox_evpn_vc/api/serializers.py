@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from ipam.api.serializers import VLANSerializer
-# from tenancy.api.nested_serializers import TenantSerializer
-from netbox.api.serializers import NetBoxModelSerializer, WritableNestedSerializer, TenantSerializer
+from tenancy.api.serializers import TenantSerializer
+from netbox.api.serializers import NetBoxModelSerializer, WritableNestedSerializer
 from ..models import EvpnVC, EvpnVCVlan, EvpnVCType
 
 class NestedEvpnVCSerializer(WritableNestedSerializer):
