@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ipam.api.serializers import NestedVLANSerializer
+from ipam.api.serializers import VLANSerializer
 from tenancy.api.nested_serializers import NestedTenantSerializer
 from netbox.api.serializers import NetBoxModelSerializer, WritableNestedSerializer
 from ..models import EvpnVC, EvpnVCVlan, EvpnVCType
@@ -19,7 +19,7 @@ class NestedEvpnVCVlanSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_evpn_vc-api:evpnvcvlan-detail'
     )
-    vlan = NestedVLANSerializer(read_only=True)
+    vlan = VLANSerializer(nested=True, read_only=True)
 
     class Meta:
         model = EvpnVCVlan 
@@ -55,7 +55,7 @@ class EvpnVCVlanSerializer(NetBoxModelSerializer):
     # url = serializers.HyperlinkedIdentityField(
     #     view_name='plugins-api:netbox_evpn_vc-api:evpnvcvlan-detail'
     # )
-    vlan = NestedVLANSerializer()
+    vlan = VLANSerializer(nested=True)
     evpn_vc = NestedEvpnVCSerializer()
 
     class Meta:
