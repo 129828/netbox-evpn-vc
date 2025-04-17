@@ -1,35 +1,22 @@
-from graphene import ObjectType
-from netbox.graphql.types import NetBoxObjectType
-from netbox.graphql.fields import ObjectField, ObjectListField
-from . import filtersets, models
+import strawberry
+from netbox.graphql.query import ObjectQuery
+from strawberry_django.type import type as django_type
+from . import models, filtersets
 
-class EvpnVCType(NetBoxObjectType):
+@django_type(models.EvpnVC)
+class EvpnVCType:
+    pass
 
-    class Meta:
-        model = models.EvpnVC
-        fields = '__all__'
+@django_type(models.EvpnVCVlan, filters=filtersets.EvpnVCVlanFilterSet)
+class EvpnVCVlanType:
+    pass
 
+@django_type(models.EvpnVCType)
+class EvpnVCTypeType:
+    pass
 
-class EvpnVCVlanType(NetBoxObjectType):
-
-    class Meta:
-        model = models.EvpnVCVlan
-        fields = '__all__'
-        filterset_class = filtersets.EvpnVCVlanFilterSet
-
-class EvpnVCTypeType(NetBoxObjectType):
-
-    class Meta:
-        model = models.EvpnVCType
-        fields = '__all__'
-
-
-class Query(ObjectType):
-    evpn_vc = ObjectField(EvpnVCType)
-    evpn_vc_list = ObjectListField(EvpnVCType)
-
-    evpn_vc_vlan = ObjectField(EvpnVCVlanType)
-    evpn_vc_vlan_list = ObjectListField(EvpnVCVlanType)
-
-    evpn_vc_type = ObjectField(EvpnVCTypeType)
-    evpn_vc_type_list = ObjectListField(EvpnVCTypeType)
+@strawberry.type
+class Query:
+    evpn_vc: ObjectQuery[EvpnVCType] = ObjectQuery(model=models.EvpnVC)
+    evpn_vc_vlan: ObjectQuery[EvpnVCVlanType] = ObjectQuery(model=models.EvpnVCVlan, filterset_class=filtersets.EvpnVCVlanFilterSet)
+    evpn_vc_type: ObjectQuery[EvpnVCTypeType] = ObjectQuery(model=models.EvpnVCType)
