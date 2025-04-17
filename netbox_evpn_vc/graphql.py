@@ -19,7 +19,8 @@ class EvpnVCType(NetBoxObjectType):
 @strawberry_django.filter(models.EvpnVCVlan, lookups=True)
 @autotype_decorator(EvpnVCVlanFilterSet)
 class EvpnVCVlanFilter(BaseFilterMixin):
-    pass
+    vlan_id: Optional[List[strawberry.ID]]
+    evpn_vc_id: Optional[List[strawberry.ID]]
 
 
 @strawberry_django.type(models.EvpnVCVlan, fields="__all__", filters=EvpnVCVlanFilter)
