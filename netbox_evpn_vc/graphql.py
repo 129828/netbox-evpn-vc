@@ -1,7 +1,6 @@
 import strawberry
 import strawberry_django
 from typing import Optional
-from netbox.ipam.vlans import
 from . import models
 
 
