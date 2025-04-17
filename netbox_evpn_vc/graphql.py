@@ -1,6 +1,6 @@
 import strawberry
 import strawberry_django
-from typing import Optional
+from typing import Optional, Annotated, List
 from . import models
 
 
