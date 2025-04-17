@@ -1,19 +1,19 @@
 import strawberry
-from strawberry_django.type import type as django_type
-from . import models, filtersets
+import strawberry_django
+from . import models
 
 
-@django_type(models.EvpnVC)
+@strawberry_django.type(models.EvpnVC, fields="__all__")
 class EvpnVCType:
     pass
 
 
-@django_type(models.EvpnVCVlan, filters=filtersets.EvpnVCVlanFilterSet)
+@strawberry_django.type(models.EvpnVCVlan, fields="__all__")
 class EvpnVCVlanType:
     pass
 
 
-@django_type(models.EvpnVCType)
+@strawberry_django.type(models.EvpnVCType, fields="__all__")
 class EvpnVCTypeType:
     pass
 
@@ -21,16 +21,19 @@ class EvpnVCTypeType:
 @strawberry.type
 class Query:
     @strawberry.field
-    def evpn_vcs(self) -> list[EvpnVCType]:
-        return models.EvpnVC.objects.all()
+    def evpn_vcs(self, id: int) -> EvpnVCType:
+        return None
+    evpn_vcs_list: list[EvpnVCType] = strawberry_django.field()
 
     @strawberry.field
-    def evpn_vc_vlans(self) -> list[EvpnVCVlanType]:
-        return models.EvpnVCVlan.objects.all()
+    def evpn_vc_vlans(self, id: int) -> EvpnVCVlanType:
+        return None
+    evpn_vc_vlans_list: list[EvpnVCVlanType] = strawberry_django.field()
 
     @strawberry.field
-    def evpn_vc_types(self) -> list[EvpnVCTypeType]:
-        return models.EvpnVCType.objects.all()
+    def evpn_vc_types(self, id: int) -> EvpnVCTypeType:
+        return None
+    evpn_vc_types_list: list[EvpnVCTypeType] = strawberry_django.field()
 
 
 schema = [
