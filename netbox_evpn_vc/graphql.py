@@ -3,6 +3,7 @@ import strawberry_django
 
 from netbox.graphql.filter_mixins import autotype_decorator, BaseFilterMixin
 from typing import Optional, Annotated, List
+from netbox.graphql.types import NetBoxObjectType
 from . import models
 
 from .filtersets import (
@@ -11,7 +12,7 @@ from .filtersets import (
 
 
 @strawberry_django.type(models.EvpnVC, fields="__all__")
-class EvpnVCType:
+class EvpnVCType(NetBoxObjectType):
     pass
 
 
@@ -21,14 +22,14 @@ class EvpnVCVlanFilter(BaseFilterMixin):
     pass
 
 
-@strawberry_django.type(models.EvpnVCVlan, fields="__all__")
-class EvpnVCVlanType:
+@strawberry_django.type(models.EvpnVCVlan, fields="__all__", filters=EvpnVCVlanFilter)
+class EvpnVCVlanType(NetBoxObjectType):
     evpn_vc: Optional[EvpnVCType]
     vlan: Annotated["VLANType", strawberry.lazy("ipam.graphql.types")]
 
 
 @strawberry_django.type(models.EvpnVCType, fields="__all__")
-class EvpnVCTypeType:
+class EvpnVCTypeType(NetBoxObjectType):
     pass
 
 
