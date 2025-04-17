@@ -1,5 +1,6 @@
 import strawberry
 import strawberry_django
+from typing import Optional
 from . import models
 
 
@@ -10,7 +11,7 @@ class EvpnVCType:
 
 @strawberry_django.type(models.EvpnVCVlan, fields="__all__")
 class EvpnVCVlanType:
-    pass
+    evpn_vc: Optional[EvpnVCType]
 
 
 @strawberry_django.type(models.EvpnVCType, fields="__all__")
