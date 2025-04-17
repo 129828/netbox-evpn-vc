@@ -3,9 +3,9 @@ import strawberry_django
 from typing import Optional, Annotated, List
 from . import models
 
-from .filters import (
-    EvpnVCTypeFilterSet
-)
+# from .filters import (
+#     EvpnVCTypeFilterSet
+# )
 
 
 @strawberry_django.type(models.EvpnVC, fields="__all__")
@@ -13,7 +13,7 @@ class EvpnVCType:
     pass
 
 
-@strawberry_django.type(models.EvpnVCVlan, fields="__all__", filters=EvpnVCTypeFilterSet)
+@strawberry_django.type(models.EvpnVCVlan, fields="__all__")
 class EvpnVCVlanType:
     evpn_vc: Optional[EvpnVCType]
     vlan: Annotated["VLANType", strawberry.lazy("ipam.graphql.types")]
