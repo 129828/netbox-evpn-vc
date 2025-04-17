@@ -5,7 +5,7 @@ from netbox.graphql.filter_mixins import autotype_decorator, BaseFilterMixin
 from typing import Optional, Annotated, List
 from . import models
 
-from .filters import (
+from .filtersets import (
     EvpnVCVlanFilterSet
 )
 
