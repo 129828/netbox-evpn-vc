@@ -31,3 +31,8 @@ class Query:
     @strawberry.field
     def evpn_vc_types(self) -> list[EvpnVCTypeType]:
         return models.EvpnVCType.objects.all()
+
+
+schema = [
+    Query,
+]
