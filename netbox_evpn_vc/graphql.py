@@ -12,7 +12,7 @@ class EvpnVCType:
 @strawberry_django.type(models.EvpnVCVlan, fields="__all__")
 class EvpnVCVlanType:
     evpn_vc: Optional[EvpnVCType]
-    vlan: Annotated["vlan", strawberry.lazy("ipam.graphql.types")]
+    vlan: Annotated["evpnvcvlan", strawberry.lazy("ipam.graphql.types")]
 
 
 @strawberry_django.type(models.EvpnVCType, fields="__all__")
