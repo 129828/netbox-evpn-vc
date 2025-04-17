@@ -9,7 +9,12 @@ class NetBoxEvpnVCConfig(PluginConfig):
     min_version = '3.2.0'
 
     def ready(self):
-        from .graphql import EVPNQuery
-        self.graphql = EVPNQuery
+        try:
+            from .graphql import EVPNQuery
+            self.graphql = EVPNQuery
+        except Exception as e:
+            import traceback
+            print("GraphQL schema failed to load:", e)
+            traceback.print_exc()
 
 config = NetBoxEvpnVCConfig
