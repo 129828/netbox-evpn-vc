@@ -21,7 +21,7 @@ class EvpnVCVlanFilter(BaseFilterMixin):
     pass
 
 
-@strawberry_django.type(models.EvpnVCVlan, fields="__all__", filters=EvpnVCVlanFilter)
+@strawberry_django.type(models.EvpnVCVlan, fields="__all__")
 class EvpnVCVlanType:
     evpn_vc: Optional[EvpnVCType]
     vlan: Annotated["VLANType", strawberry.lazy("ipam.graphql.types")]
