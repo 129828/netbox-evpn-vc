@@ -1,6 +1,7 @@
 import strawberry
 import strawberry_django
 from typing import Optional
+from netbox.ipam.vlans import
 from . import models
 
 
@@ -12,6 +13,7 @@ class EvpnVCType:
 @strawberry_django.type(models.EvpnVCVlan, fields="__all__")
 class EvpnVCVlanType:
     evpn_vc: Optional[EvpnVCType]
+    vlan: Annotated["vlan", strawberry.lazy("ipam.graphql.types")]
 
 
 @strawberry_django.type(models.EvpnVCType, fields="__all__")
@@ -28,7 +30,8 @@ class Query:
 
     @strawberry.field
     def evpn_vc_vlans(self, id: int) -> EvpnVCVlanType:
-        return None
+        return models.EvpnVCVlan.objects.filter(id=id).first()
+
     evpn_vc_vlans_list: list[EvpnVCVlanType] = strawberry_django.field()
 
     @strawberry.field
