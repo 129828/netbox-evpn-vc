@@ -1,7 +1,8 @@
 import strawberry
 import strawberry_django
 
-from netbox.graphql.filter_mixins import autotype_decorator, BaseFilterMixin
+# from netbox.graphql.filter_mixins import autotype_decorator, BaseFilterMixin
+from netbox.graphql.filter_mixins import BaseFilterMixin
 from typing import Optional, Annotated, List
 from netbox.graphql.types import NetBoxObjectType
 from . import models
