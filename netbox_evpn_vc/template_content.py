@@ -6,7 +6,7 @@ from netbox.plugins import PluginTemplateExtension
 from . import tables
 
 class EvpnVCVLANStatus(PluginTemplateExtension):
-    model = "ipam.vlan"
+    models = ["ipam.vlan"]
     def right_page(self):
         vlan = self.context["object"]
         template_filename = "netbox_evpn_vc/vlan_evpn_vc.html"
@@ -19,7 +19,7 @@ class EvpnVCVLANStatus(PluginTemplateExtension):
             return ""
 
 class TenantEvpnVCs(PluginTemplateExtension):
-    model = "tenancy.tenant"
+    models = ["tenancy.tenant"]
     def right_page(self):
         tenant = self.context["object"]
         vcs = tables.EvpnVCTenantTable(list(tenant.evpnvcs.all().annotate(vlan_count=Count('vlans'))), orderable=False)
