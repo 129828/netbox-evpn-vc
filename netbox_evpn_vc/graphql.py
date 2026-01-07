@@ -2,7 +2,7 @@ import strawberry
 import strawberry_django
 
 # from netbox.graphql.filter_mixins import autotype_decorator, BaseFilterMixin
-from netbox.graphql.filter_mixins import BaseFilter
+from netbox.graphql.filters import BaseModelFilter
 from typing import Optional, Annotated, List
 from netbox.graphql.types import NetBoxObjectType
 from . import models
@@ -19,7 +19,7 @@ class EvpnVCType(NetBoxObjectType):
 
 @strawberry_django.filter(models.EvpnVCVlan, lookups=True)
 # @autotype_decorator(EvpnVCVlanFilterSet)
-class EvpnVCVlanFilter(BaseFilter):
+class EvpnVCVlanFilter(BaseModelFilter):
     vlan_id: Optional[List[strawberry.ID]]
     evpn_vc_id: Optional[List[strawberry.ID]]
 
