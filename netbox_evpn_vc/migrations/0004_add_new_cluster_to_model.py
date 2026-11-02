@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='evpnvc',
             name='clusters',
-            field=models.ManyToManyField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='evpn_vcs', to='virtualization.Cluster'),
+            field=models.ManyToManyField(blank=True, null=True, related_name='evpn_vcs', to='virtualization.Cluster'),
         ),
     ]
