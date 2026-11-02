@@ -50,6 +50,13 @@ class EvpnVC(NetBoxModel):
         blank=True,
         null=True
     )
+    clusters = models.ManyToManyField(
+        to='virtualization.Cluster',
+        related_name='evpn_vcs',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
     class Meta:
         ordering = ('vni',)

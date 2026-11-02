@@ -1,8 +1,9 @@
 from django import forms
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelBulkEditForm 
-from utilities.forms.fields import CommentField, DynamicModelChoiceField
+from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 from ipam.models import VLAN
 from tenancy.models import Tenant
+from virtualization.models import Cluster
 from .models import EvpnVC, EvpnVCVlan, EvpnVCType
 
 class EvpnVCTypeForm(NetBoxModelForm):
@@ -24,9 +25,14 @@ class EvpnVCForm(NetBoxModelForm):
         required=True
     )
 
+    clusters = DynamicModelMultipleChoiceField(
+        queryset=Cluster.objects.all(),
+        required=False
+    )
+
     class Meta:
         model = EvpnVC 
-        fields = ('vni', 'name', 'vc_type', 'tenant', 'comments', 'tags')
+        fields = ('vni', 'name', 'vc_type', 'tenant', 'clusters', 'comments', 'tags')
 
 class EvpnVCBulkEditForm(NetBoxModelBulkEditForm):
     pk = forms.ModelMultipleChoiceField(
@@ -41,15 +47,20 @@ class EvpnVCBulkEditForm(NetBoxModelBulkEditForm):
         queryset=EvpnVCType.objects.all(),
         required=True
     )
+    clusters = DynamicModelMultipleChoiceField(
+        queryset=Cluster.objects.all(),
+        required=False
+    )
 
     model = EvpnVC
     fieldsets = (
-        (None, ('tenant','vc_type')),
+        (None, ('tenant','vc_type','clusters')),
     )
 
     class Meta:
         nullable_fields = [
             'tenant',
+            'clusters',
         ]
 
 class EvpnVCVlanForm(NetBoxModelForm):

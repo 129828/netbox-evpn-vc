@@ -27,6 +27,16 @@
                 </td>
             </tr>
             <tr>
+              <th scope="row">Clusters</th>
+              <td>
+                <ul class="list-unstyled">
+                  {% for cluster in object.clusters.all %}
+                    <li><a href="{{ cluster.get_absolute_url }}">{{ cluster.name }}</a></li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            <tr>
               <th scope="row">VLANs</th>
               <td>{{ object.vlans.count }}</td>
             </tr>

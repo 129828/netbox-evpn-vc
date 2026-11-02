@@ -34,8 +34,8 @@ class EvpnVCTable(NetBoxTable):
 
     class Meta(NetBoxTable.Meta):
         model = EvpnVC 
-        fields = ('pk', 'vni', 'name', 'vc_type', 'comments', 'tenant', 'vlan_count')
-        default_columns = ('vni','name', 'vc_type', 'tenant', 'vlan_count')
+        fields = ('pk', 'vni', 'name', 'vc_type', 'comments', 'tenant', 'clusters', 'vlan_count')
+        default_columns = ('vni','name', 'vc_type', 'tenant', 'clusters', 'vlan_count')
 
 class EvpnVCTenantTable(NetBoxTable):
     vni = tables.Column(

@@ -4,6 +4,7 @@ from .models import EvpnVC, EvpnVCVlan, EvpnVCType
 from django.db.models import Q
 from ipam.models import VLAN
 from tenancy.models import Tenant
+from virtualization.models import Cluster
 
 class EvpnVCTypeFilterSet(NetBoxModelFilterSet):
     q = django_filters.CharFilter(
@@ -31,15 +32,24 @@ class EvpnVCFilterSet(NetBoxModelFilterSet):
         to_field_name='id',
         label='Tenant (ID)',
     )
+
+    clusters = django_filters.ModelMultipleChoiceFilter(
+        field_name='clusters__id',
+        queryset=Cluster.objects.all(),
+        to_field_name='id',
+        label='Clusters (ID)',
+    )
+
     class Meta:
         model = EvpnVC
-        fields = ('id', 'name', 'vni', 'tenant')
+        fields = ('id', 'name', 'vni', 'tenant', 'clusters')
 
     def search(self, queryset, name, value):
         qs_filter = (
                   Q(id__icontains=value)
                 | Q(name__icontains=value)
                 | Q(vni__icontains=value)
+                | Q(clusters__name__icontains=value)
         )
         return queryset.filter(qs_filter)
 
