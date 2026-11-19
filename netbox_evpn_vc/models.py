@@ -54,7 +54,6 @@ class EvpnVC(NetBoxModel):
         to='virtualization.Cluster',
         related_name='evpn_vcs',
         blank=True,
-        null=True
     )
 
     class Meta:
@@ -92,6 +91,9 @@ class EvpnVCVlan(NetBoxModel):
         ordering = ['evpn_vc', 'vlan']
         verbose_name = "VNI to VLAN connection"
         verbose_name_plural = "VNI to VLAN connections"
+
+    def __str__(self):
+        return f'{self.evpn_vc} - {self.vlan}' if self.vlan else str(self.evpn_vc)
 
     def get_absolute_url(self):
         return reverse('plugins:netbox_evpn_vc:evpnvcvlan', args=[self.pk])

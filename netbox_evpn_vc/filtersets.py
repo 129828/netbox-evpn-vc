@@ -1,38 +1,30 @@
 import django_filters
-from netbox.filtersets import NetBoxModelFilterSet
-from .models import EvpnVC, EvpnVCVlan, EvpnVCType 
 from django.db.models import Q
 from ipam.models import VLAN
+from netbox.filtersets import NetBoxModelFilterSet
 from tenancy.models import Tenant
 from virtualization.models import Cluster
 
+from .models import EvpnVC, EvpnVCType, EvpnVCVlan
+
+
 class EvpnVCTypeFilterSet(NetBoxModelFilterSet):
-    q = django_filters.CharFilter(
-        method='search',
-        label='Search',
-    )
 
     class Meta:
         model = EvpnVCType
-        fields = ('id', 'name', 'description',)
+        fields = ('id', 'name', 'description')
 
     def search(self, queryset, name, value):
-        qs_filter = (Q(name__icontains=value))
-        return queryset.filter(qs_filter)
+        return queryset.filter(Q(name__icontains=value))
+
 
 class EvpnVCFilterSet(NetBoxModelFilterSet):
-    q = django_filters.CharFilter(
-        method='search',
-        label='Search',
-    )
-
     tenant_id = django_filters.ModelMultipleChoiceFilter(
         field_name='tenant__id',
         queryset=Tenant.objects.all(),
         to_field_name='id',
         label='Tenant (ID)',
     )
-
     clusters = django_filters.ModelMultipleChoiceFilter(
         field_name='clusters__id',
         queryset=Cluster.objects.all(),
@@ -42,41 +34,41 @@ class EvpnVCFilterSet(NetBoxModelFilterSet):
 
     class Meta:
         model = EvpnVC
-        fields = ('id', 'name', 'vni', 'tenant', 'clusters')
+        fields = ('id', 'name', 'vni', 'vc_type', 'tenant', 'clusters')
 
     def search(self, queryset, name, value):
         qs_filter = (
-                  Q(id__icontains=value)
-                | Q(name__icontains=value)
-                | Q(vni__icontains=value)
-                | Q(clusters__name__icontains=value)
+            Q(id__icontains=value)
+            | Q(name__icontains=value)
+            | Q(vni__icontains=value)
+            | Q(clusters__name__icontains=value)
         )
-        return queryset.filter(qs_filter)
+        # the clusters join can return the same VC multiple times
+        return queryset.filter(qs_filter).distinct()
+
 
 class EvpnVCVlanFilterSet(NetBoxModelFilterSet):
-
-    class Meta:
-        model = EvpnVCVlan 
-        fields = ('id', 'evpn_vc', 'vlan')
-
     evpn_vc_id = django_filters.ModelMultipleChoiceFilter(
         field_name='evpn_vc__id',
         queryset=EvpnVC.objects.all(),
         to_field_name='id',
         label='EVPN VC (ID)',
     )
-
     vlan_id = django_filters.ModelMultipleChoiceFilter(
         field_name='vlan__id',
         queryset=VLAN.objects.all(),
         to_field_name='id',
-        label=' (ID)',
+        label='VLAN (ID)',
     )
+
+    class Meta:
+        model = EvpnVCVlan
+        fields = ('id', 'evpn_vc', 'vlan')
 
     def search(self, queryset, name, value):
         qs_filter = (
-                  Q(id__icontains=value)
-                | Q(vlan__name__icontains=value)
-                | Q(evpn_vc__name__icontains=value)
+            Q(id__icontains=value)
+            | Q(vlan__name__icontains=value)
+            | Q(evpn_vc__name__icontains=value)
         )
         return queryset.filter(qs_filter)

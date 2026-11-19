@@ -23,7 +23,11 @@
             <tr>
                 <th scope="row">Tenant</th>
                 <td>
-                    <span><a href="{{ object.tenant.get_absolute_url }}">{{ object.tenant.name }}</a></span>
+                  {% if object.tenant %}
+                    <a href="{{ object.tenant.get_absolute_url }}">{{ object.tenant.name }}</a>
+                  {% else %}
+                    {{ ''|placeholder }}
+                  {% endif %}
                 </td>
             </tr>
             <tr>
